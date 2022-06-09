@@ -9,17 +9,22 @@ const getCard = (req, res, next) => {
       res.send(card);
     })
     .catch(next);
-};
+}
 
 const createCard = (req, res) => {
+  const test = req.files.map((f) => {
+    const path = f.path.replace(/\\/g, '/');
+    const name = req.body.name[req.files.indexOf(f)];
+    const tag = req.body.tag[req.files.indexOf(f)];
+    return { nameEn: name, tag: tag, link: 'http://localhost:3001/' + 'pictures/' + f.filename, filePath: path }
+  })
+  debugger
 
- const path = req.file.path.replace(/\\/g, '/');
-
-  Card.create({ nameEn: req.file.filename, tag: "tagy", link: 'http://localhost:3001/' + 'pictures/' + req.file.filename, filePath: path})
+  Card.create(test)
     .then((card) => res.send(card))
     .catch((err) => {
       throw err;
-    })
+  })
 }
 
 const deleteCard = (req, res, next) => {
@@ -49,4 +54,4 @@ const deleteCard = (req, res, next) => {
 
 module.exports = {
     createCard, getCard, deleteCard
-  };
+};
