@@ -12,15 +12,14 @@ const getCard = (req, res, next) => {
 }
 
 const createCard = (req, res) => {
-  const test = req.files.map((f) => {
+  const newcard = req.files.map((f) => {
     const path = f.path.replace(/\\/g, '/');
-    const name = req.body.name[req.files.indexOf(f)];
-    const tag = req.body.tag[req.files.indexOf(f)];
+    const name = Array.isArray(req.body.name) ? req.body.name[req.files.indexOf(f)] : req.body.name;
+    const tag = Array.isArray(req.body.tag) ? req.body.tag[req.files.indexOf(f)] : req.body.tag;
     return { nameEn: name, tag: tag, link: 'http://localhost:3001/' + 'pictures/' + f.filename, filePath: path }
   })
-  debugger
 
-  Card.create(test)
+  Card.create(newcard)
     .then((card) => res.send(card))
     .catch((err) => {
       throw err;
@@ -28,27 +27,30 @@ const createCard = (req, res) => {
 }
 
 const deleteCard = (req, res, next) => {
-  const { cardId } = req.params;
-  Card.findById(cardId)
+  const cardId = req.params.cardId.split(',').map((card) => {
+    return card;
+  })
+
+  Card.find({ _id: {$in : cardId}})
     .orFail(new NotFound('Нет фильма с таким id'))
     .then((card) => {
-      card.remove()
-      .then((delcard) => {
-        fs.unlink(delcard.filePath, function(err){
-          if (err) {
-            console.log(err);
-          } else {
-            console.log("Файл удалён")
-            res.send(card)
-          }
-      });
-      })
-      .catch(next);
+      card.forEach((c) => {
+        c.remove()
+          .then((card) => {
+            fs.unlink(card.filePath, function(err){
+              if (err) {
+                console.log(err);
+              } else {
+                console.log("Файл удалён");
+              }
+            })
+          })
+        })
+        res.send(card);
     })
     .catch((err) => {
       throw err;
     })
-    .catch(next);
 }
  
 
