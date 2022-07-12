@@ -1,6 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const router = require('./routes/cards');
+const authRouter = require('./routes/auth');
+const userRouter = require('./routes/users');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const helmet = require('helmet');
@@ -24,6 +26,8 @@ app.use(helmet());
 app.use(bodyParser.json());
 
 app.use('/', router);
+app.use('/', authRouter);
+app.use('/', userRouter);
 
 app.listen(PORT, () => {
     console.log(`App listening on port ${PORT}`)
