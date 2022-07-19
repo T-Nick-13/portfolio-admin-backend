@@ -77,6 +77,7 @@ const updateUser = (req, res, next) => {
 };
 
 const login = (req, res, next) => {
+  debugger
   const { email, password } = req.body;
 
   User.findOne({ email }).select('+password')
