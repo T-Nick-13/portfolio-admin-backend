@@ -4,23 +4,21 @@ const router = require('./routes/cards');
 const authRouter = require('./routes/auth');
 const userRouter = require('./routes/users');
 const bodyParser = require('body-parser');
-//const cors = require('cors');
+const cors = require('cors');
 const helmet = require('helmet');
 const limiter = require('./utils/limiter');
 const path = require('path');
 
-const { PORT = 3001 } = process.env;
+const { PORT = 3000 } = process.env;
 const app = express(); 
 
 mongoose.connect('mongodb://localhost:27017/portfolio', {
-  useNewUrlParser: true,
-  /* useCreateIndex: true,
-    useFindAndModify: false */
+  useNewUrlParser: true
 });
 
 app.use(express.static(path.join(__dirname, './public')));
 
-//app.use(cors());
+app.use(cors());
 app.use(limiter);
 app.use(helmet());
 app.use(bodyParser.json());
