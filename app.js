@@ -13,7 +13,8 @@ const options = {
   origin: [
     'http://localhost:3000',
     'http://localhost:3001',
-    'http://stafeeva.site'
+    'http://stafeeva.site',
+    'http://admin.stafeeva.site',
   ],
   methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
   preflightContinue: false,
