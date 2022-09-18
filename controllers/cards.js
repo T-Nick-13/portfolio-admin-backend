@@ -16,7 +16,7 @@ const createCard = (req, res) => {
     const path = f.path.replace(/\\/g, '/');
     const name = Array.isArray(req.body.name) ? req.body.name[req.files.indexOf(f)] : req.body.name;
     const tag = Array.isArray(req.body.tag) ? req.body.tag[req.files.indexOf(f)] : req.body.tag;
-    return { nameEn: name, tag: tag, link: 'http://api.stafeeva.site/' + 'pictures/' + f.filename, filePath: path }
+    return { nameEn: name, tag: tag, link: 'https://api.stafeeva.site/' + 'pictures/' + f.filename, filePath: path }
   })
 
   Card.create(newcard)

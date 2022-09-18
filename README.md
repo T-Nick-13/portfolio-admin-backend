@@ -1,7 +1,7 @@
 # Portfolio-admin-api
 
-API: <http://admin.stafeeva.site/>  
-Используется для сайта портфолио <http://stafeeva.site/>
+API: <https://admin.stafeeva.site/>  
+Используется для сайта портфолио <https://stafeeva.site/>
 
 ## Как это работает
 

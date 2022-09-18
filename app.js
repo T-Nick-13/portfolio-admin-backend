@@ -15,7 +15,10 @@ const options = {
     'http://localhost:3001',
     'http://stafeeva.site',
     'http://admin.stafeeva.site',
-    'http://test.stafeeva.site'
+    'http://test.stafeeva.site',
+    'https://stafeeva.site',
+    'https://admin.stafeeva.site',
+    'https://test.stafeeva.site'
   ],
   methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
   preflightContinue: false,
