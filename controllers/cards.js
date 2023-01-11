@@ -16,8 +16,12 @@ const createCard = (req, res) => {
     const path = f.path.replace(/\\/g, '/');
     const name = Array.isArray(req.body.name) ? req.body.name[req.files.indexOf(f)] : req.body.name;
     const tag = Array.isArray(req.body.tag) ? req.body.tag[req.files.indexOf(f)] : req.body.tag;
-    return { nameEn: name, tag: tag, link: 'https://api.stafeeva.site/' + 'pictures/' + f.filename, filePath: path }
+    const mainPage = Array.isArray(req.body.mainPage) ? req.body.mainPage[req.files.indexOf(f)] : req.body.mainPage;
+    const index = Array.isArray(req.body.index) ? req.body.index[req.files.indexOf(f)] : req.body.index;
+    return { nameEn: name, tag, link: /* 'https://api.stafeeva.site/' */'http://localhost:3001/' + 'pictures/' + f.filename, 
+      filePath: path, mainPage, index }
   })
+  debugger
 
   Card.create(newcard)
     .then((card) => res.send(card))
@@ -52,8 +56,46 @@ const deleteCard = (req, res, next) => {
       throw err;
     })
 }
+
+const editCard = (req, res, next) => {
+
+
+  const cards = req.body;
+  req.body.forEach((card) => {
+    Card.findByIdAndUpdate(
+      card._id,
+      { $set:
+          {
+          'mainPage' : card.mainPage,
+          'index' : card.index
+          },
+      },
+      {
+        new: true,
+        runValidators: true,
+      },
+    )
+      .then((u) => {
+        if (!u) {
+          throw new NotFound('Card не найдена');
+        }
+      })
+      .catch((err) => {
+        if (err.name === 'ValidationError') {
+          throw new BadRequest('Введены некорректные данные');
+        }
+        throw err;
+      })
+      .catch(next);
+
+  })
+  res.send(JSON.stringify({cards}));
+
+
+};
+
  
 
 module.exports = {
-    createCard, getCard, deleteCard
+    createCard, getCard, deleteCard, editCard
 };

@@ -16,12 +16,13 @@ const cardSchema = new mongoose.Schema({
   },
   filePath: {
     type: String,
-  }/* ,
-  cardId: {
+  },
+  mainPage: {
+    type: Boolean,
+  },
+  index: {
     type: Number,
-    required: true,
-    unique: true,
-  } */
+  }
 });
 
 module.exports = mongoose.model('card', cardSchema);
