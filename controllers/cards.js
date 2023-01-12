@@ -18,7 +18,7 @@ const createCard = (req, res) => {
     const tag = Array.isArray(req.body.tag) ? req.body.tag[req.files.indexOf(f)] : req.body.tag;
     const mainPage = Array.isArray(req.body.mainPage) ? req.body.mainPage[req.files.indexOf(f)] : req.body.mainPage;
     const index = Array.isArray(req.body.index) ? req.body.index[req.files.indexOf(f)] : req.body.index;
-    return { nameEn: name, tag, link: /* 'https://api.stafeeva.site/' */'http://localhost:3001/' + 'pictures/' + f.filename, 
+    return { nameEn: name, tag, link: 'https://api.stafeeva.site/' + 'pictures/' + f.filename, 
       filePath: path, mainPage, index }
   })
   debugger
