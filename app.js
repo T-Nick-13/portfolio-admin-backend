@@ -36,7 +36,7 @@ mongoose.connect('mongodb://localhost:27017/portfolio', {
 
 app.use(express.static(path.join(__dirname, './public')));
 
-//app.use(cors());
+app.use(cors());
 //app.use(limiter);
 app.use(helmet());
 app.use('*', cors(options));
@@ -47,5 +47,5 @@ app.use('/', authRouter);
 app.use('/', userRouter);
 
 app.listen(PORT, () => {
-    console.log(`App listening on port ${PORT}`)
+  console.log(`App listening on port ${PORT}`)
 }) 

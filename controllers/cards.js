@@ -21,7 +21,6 @@ const createCard = (req, res) => {
     return { nameEn: name, tag, link: 'https://api.stafeeva.site/' + 'pictures/' + f.filename, 
       filePath: path, mainPage, index }
   })
-  debugger
 
   Card.create(newcard)
     .then((card) => res.send(card))
@@ -58,9 +57,8 @@ const deleteCard = (req, res, next) => {
 }
 
 const editCard = (req, res, next) => {
-
-
   const cards = req.body;
+  debugger
   req.body.forEach((card) => {
     Card.findByIdAndUpdate(
       card._id,
@@ -89,9 +87,7 @@ const editCard = (req, res, next) => {
       .catch(next);
 
   })
-  res.send(JSON.stringify({cards}));
-
-
+  res.send(JSON.stringify(cards));
 };
 
  
